@@ -59,7 +59,7 @@ def gather_keys():
 
     print '* Authorize the request token in your browser'
     print ''
-    if platform.mac_ver():
+    if platform.system()=='Darwin':
         subprocess.Popen(['open', client.authorize_token_url(token)])
     else:
         print 'open: %s' % client.authorize_token_url(token)
@@ -87,11 +87,11 @@ def pause():
 if __name__ == '__main__':
     import sys
 
-    if not (len(sys.argv) == 3):
-        print "Arguments 'client key', 'client secret' are required"
-        sys.exit(1)
-    CONSUMER_KEY = sys.argv[1]
-    CONSUMER_SECRET = sys.argv[2]
-
+    if (len(sys.argv) == 3):
+        CONSUMER_KEY = sys.argv[1]
+        CONSUMER_SECRET = sys.argv[2]
+    else:
+        CONSUMER_KEY = raw_input('Consumer Key:');
+        CONSUMER_SECRET = raw_input('Consumer Secret:');
     gather_keys()
     print 'Done.'
